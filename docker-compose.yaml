@@ -1,0 +1,70 @@
+version: "3"
+
+services:
+  mlflow:
+    build:
+      context: "."
+      dockerfile: mlflow.Dockerfile
+    container_name: mlflow
+    ports:
+      - "5000:5000"
+    environment:
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: minioadmin
+      AWS_SECRET_ACCESS_KEY: minioadmin
+    command: |-
+      server
+        --backend-store-uri postgresql://mlflow:mlflow@postgres:5432/mlflow
+        --artifacts-destination s3://mlflow
+        --host 0.0.0.0
+    depends_on:
+      - postgres
+      - minio
+
+  postgres:
+    image: postgres:13
+    container_name: mlflow_db
+    environment:
+      POSTGRES_USER: mlflow
+      POSTGRES_PASSWORD: mlflow
+      POSTGRES_DB: mlflow
+    volumes:
+      - minio-db-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "mlflow"]
+      interval: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio
+    container_name: mlflow_s3
+    ports:
+      - "9080:9000"
+      - "9090:9090"
+    volumes:
+      - minio-db-volume:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server --console-address ":9090" /data
+
+  init_minio:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      until (/usr/bin/mc config host add myminio http://minio:9000 minioadmin minioadmin)
+      do echo '...waiting...' && sleep 1; done;
+      /usr/bin/mc mb myminio/mlflow;
+      /usr/bin/mc policy set download myminio/mlflow;
+      exit 0;
+      "
+    depends_on:
+      - minio
+
+volumes:
+  postgres-db-volume:
+  minio-db-volume:
