@@ -1,5 +1,8 @@
 # Start mlflow fastly with docker and docker compose
 
+![](https://img.shields.io/badge/mlflow-0077B5?style=for-the-badge&logo=mlflow&logoColor=lightblue)
+![](https://img.shields.io/badge/docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+
 ## Get started
 
 ### Step 1: Download files
