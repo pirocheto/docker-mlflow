@@ -1,4 +1,4 @@
-# MLflow tracking server with basic authentication
+# MLflow server with basic authentication
 
 [![docker-badge](https://img.shields.io/badge/docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![mlflow-badge](https://img.shields.io/badge/mlflow-0077B5?style=for-the-badge&logo=mlflow&logoColor=white)](https://mlflow.org/)
