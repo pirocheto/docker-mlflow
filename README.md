@@ -27,7 +27,7 @@ You must have docker and docker compose installed on your machine. You can check
 
 If you need them, the easiest way to get them is to install Docker Desktop. You can find installation instructions [here](https://docs.docker.com/desktop/).
 
-## Usage
+### Usage
 
 1. Clone the repository
 
