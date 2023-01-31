@@ -22,10 +22,10 @@ You must have docker and docker compose installed on your machine. You can check
 
 - **For docker compose**:
   ```bash
-  docker compose --version # or docker-compose --version
+  docker compose --version
   ```
 
-If you need them, the easiest way to get them is to install Docker Desktop. You can find installation instructions [here](https://docs.docker.com/desktop/).
+If you need, the easiest way to get them is to install Docker Desktop. You can find installation instructions [here](https://docs.docker.com/desktop/).
 
 ### Usage
 
