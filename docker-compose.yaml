@@ -1,9 +1,22 @@
 version: "3"
 
 services:
+  nginx:
+    build:
+      context: nginx
+      dockerfile: nginx.Dockerfile
+    container_name: nginx
+    ports:
+      - 8000:8000
+    environment:
+      BASIC_USERNAME: mlflow
+      BASIC_PASSWORD: mlflow
+    depends_on:
+      - mlflow
+
   mlflow:
     build:
-      context: "."
+      context: mlflow
       dockerfile: mlflow.Dockerfile
     container_name: mlflow
     ports:
@@ -17,6 +30,7 @@ services:
         --backend-store-uri postgresql://mlflow:mlflow@postgres:5432/mlflow
         --artifacts-destination s3://mlflow
         --host 0.0.0.0
+        --port 5000
     depends_on:
       - postgres
       - minio
