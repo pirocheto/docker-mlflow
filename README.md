@@ -73,6 +73,15 @@ You can also set up at the session level:
   $Env:MLFLOW_TRACKING_PASSWORD = "<<YOUR-MLFLOW-PASSWORD>>"
   ```
 
+### Configuration
+
+You can change the username and password used to login in the docker-compose file.
+
+| name                                                                                             | description            | default value |
+| ------------------------------------------------------------------------------------------------ | ---------------------- | ------------- |
+| [BASIC_USERNAME](https://github.com/pirocheto/docker-mlflow/blob/master/docker-compose.yaml#L12) | username used to login | mlflow        |
+| [BASIC_PASSWORD](https://github.com/pirocheto/docker-mlflow/blob/master/docker-compose.yaml#L13) | password used to login | mlflow        |
+
 ## Documentation
 
 The docker-compose file is used to set up scenario 5 from the mlflow documentation as shown below.
